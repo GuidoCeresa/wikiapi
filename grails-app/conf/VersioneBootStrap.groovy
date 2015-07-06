@@ -2,7 +2,18 @@ import it.algos.algospref.Pref
 import it.algos.algospref.Type
 import it.algos.wikiapi.LibWiki
 
-class VersioneBootStrap {
+/**
+ * Creato dal plugin AlgosVers
+ *
+ * Classe di BootStrap in cui passa SEMPRE quando si lancia il programma
+ * Passa anche in tutte le altre classi col suffisso -BootStrap
+ *
+ * Questa classe viene creata (solo se non esiste già) quando si installa il plugin
+ * NON viene cancellata quando si disinstalla il plugin
+ * (per preservare il log delle versioni, anche senza lo specifico Controller)
+ * Non viene modificata quando si esegue un upgrade del plugin
+ */
+public class VersioneBootStrap {
 
     // utilizzo di un service con la businessLogic per l'elaborazione dei dati
     // il service viene iniettato automaticamente
@@ -54,6 +65,18 @@ class VersioneBootStrap {
             pref.intero = 500
             pref.save(flush: true)
             versioneService.newVersione('Preferenze', 'MAX_DOWNLOAD di default 500')
+        }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(4)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.NUM_RECORDS_INDEX_BIO
+            pref.descrizione = 'Numero di records visualizzati un una schermata di WikiBio'
+            pref.type = Type.intero
+            pref.intero = 1000
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'NUM_RECORDS_INDEX_BIO di default 1000')
         }// fine del blocco if
     }// fine della closure
 

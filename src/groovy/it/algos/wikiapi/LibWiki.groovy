@@ -12,6 +12,7 @@ public abstract class LibWiki {
     public static final String USA_CRONO_BIO = 'usaCroonoBio'
     public static final String USA_LIMITE_DOWNLOAD = 'usaLimiteDownload'
     public static final String MAX_DOWNLOAD = 'maxDownload'
+    public static final String NUM_RECORDS_INDEX_BIO = 'numRecordsIndexBio'
 
     private static String QUERY = 'query'
     private static String PAGEID = 'pageid'

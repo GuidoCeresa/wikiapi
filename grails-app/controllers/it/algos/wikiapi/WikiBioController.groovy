@@ -1,5 +1,6 @@
 package it.algos.wikiapi
 
+import it.algos.algospref.Pref
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -10,7 +11,7 @@ class WikiBioController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 100, 100)
+        params.max = Pref.getInt(LibWiki.NUM_RECORDS_INDEX_BIO)
         respond WikiBio.list(params), model: [wikiBioInstanceCount: WikiBio.count()]
     }
 

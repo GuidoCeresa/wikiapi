@@ -1,3 +1,6 @@
+import it.algos.algoslogo.Evento
+import it.algos.algoslogo.EventoService
+
 /**
  * Creato dal plugin AlgosPref
  *
