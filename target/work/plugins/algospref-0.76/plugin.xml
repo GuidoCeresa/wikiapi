@@ -1,0 +1,15 @@
+<plugin name='algospref' version='0.76' grailsVersion='2.4.2 &gt; *'>
+  <author>Gac</author>
+  <title>Algospref Plugin</title>
+  <description>Brief summary/description of the plugin.
+</description>
+  <documentation>http://grails.org/plugin/algospref</documentation>
+  <type>AlgosprefGrailsPlugin</type>
+  <resources>
+    <resource>BootStrap</resource>
+    <resource>PrefBootStrap</resource>
+    <resource>spring.resources</resource>
+    <resource>it.algos.algospref.PrefController</resource>
+    <resource>it.algos.algospref.Pref</resource>
+  </resources>
+</plugin>

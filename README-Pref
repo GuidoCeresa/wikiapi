@@ -1,0 +1,49 @@
+Plugin per gestire una tavola di preferenze standard.
+Grails: 2.4.2
+
+Tipologia dei tipi di valori utilizzabili:
+    stringa('stringa', 'stringa', 'stringa'),
+    testo('testo', 'testo', 'testo'),
+    booleano('booleano', 'booleano', 'booleano'),
+    intero('intero', 'intero', 'intero'),
+    lungo('lungo', 'lungo', 'lungo'),
+    reale('reale', 'reale', 'reale'),
+    doppio('doppio', 'doppio', 'doppio'),
+    decimale('decimale', 'decimale', 'decimale'),
+    data('data', 'data', 'data')
+
+Il controller Pref appare nella normale lista dei controlli dell'applicazione
+La domain class Pref è utilizzabile nell'applicazione finale
+I valori sono creabili, modificabili e visibili dall'utilizzatore nelle normali views
+
+I valori sono accessibili da programma usando la libreria LibPref e le chiamate
+specifiche per un valore di ritorno (con valore di default suggerito, oppure senza, nullo se vuoto):
+        String getStr(String code)
+        String getStr(String code, String suggerito)
+        String getTxt(String code)
+        String getTxt(String code, String suggerito)
+        boolean getBool(String code)
+        boolean getBool(String code, boolean suggerito)
+        Integer getInt(String code)
+        Integer getInt(String code, int suggerito)
+        Long getLong(String code)
+        Real getReal(String code)
+        Double getDouble(String code)
+        BigDecimal getDec(String code)
+        Date getDate(String code)
+
+DataBase: utilizza il DB dell'applicazione finale (esclusi dal JAR)
+Views: utilizza i propri templates per creare i file .gsp
+Layout: utilizza il layout dell'applicazione finale (esclusi dal JAR)
+Index: utilizza il file index dell'applicazione finale (esclusi dal JAR)
+Scripts: ricopia il file i18n/algospref.properties
+Enumeration: BoolValue, disponibile nell'applicazione finale
+Librerie: LibPref, disponibile nell'applicazione finale
+Templates: usati solo internamente (esclusi dal JAR)
+Test: usati solo internamente (esclusi dal JAR)
+CSS: utilizza il css dell'applicazione finale (esclusi dal JAR)
+
+@TODO mancano i test
+@TODO modificare i valori booleani da testo a checkbox, utilizzando Ajax
+@TODO modificare i valori data, utilizzano un picker
+@TODO manca l'implementazione del tipo decimale
