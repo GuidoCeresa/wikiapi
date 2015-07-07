@@ -64,11 +64,11 @@ public class VersioneBootStrap {
             pref.type = Type.intero
             pref.intero = 500
             pref.save(flush: true)
-            versioneService.newVersione('Preferenze', 'MAX_DOWNLOAD di default 500')
+            versioneService.newVersione('Preferenze', 'MAX_DOWNLOAD di default 1000')
         }// fine del blocco if
 
         //--creata una nuova preferenza
-        if (versioneService && versioneService.installaVersione(4)) {
+        if (versioneService && versioneService.installaVersione(5)) {
             Pref pref = new Pref()
             pref.ordine = Pref.list().size() + 1
             pref.code = LibWiki.NUM_RECORDS_INDEX_BIO

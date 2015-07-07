@@ -154,7 +154,7 @@ class ApiService {
     public void newBioCiclo() {
         ArrayList<Integer> listaTotaleCategoria
         ArrayList<Integer> listaEsistentiDataBase
-        ArrayList<Integer> listaMancanti = null
+        ArrayList<Integer> listaMancanti
 
         listaTotaleCategoria = LibWiki.creaListaCat(CAT_BIO)
         listaEsistentiDataBase = (ArrayList<Integer>) WikiBio.executeQuery("select pageid from WikiBio")
