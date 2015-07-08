@@ -1,9 +1,10 @@
 package it.algos.wikiapi
 
+import grails.transaction.Transactional
+import it.algos.algoslib.Lib
 import it.algos.algospref.Pref
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class WikiBioController {
@@ -11,8 +12,18 @@ class WikiBioController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+        String titoloLista
+        int recordsTotali
+
         params.max = Pref.getInt(LibWiki.NUM_RECORDS_INDEX_BIO)
-        respond WikiBio.list(params), model: [wikiBioInstanceCount: WikiBio.count()]
+
+        //--selezione dei records da mostrare
+        recordsTotali = WikiBio.count()
+
+        //--titolo visibile sopra la table dei dati
+        titoloLista = 'Elenco di ' + Lib.Txt.formatNum(recordsTotali) + ' pagine biografiche (fotocopia pagina wiki)'
+
+        respond WikiBio.list(params), model: [wikiBioInstanceCount: WikiBio.count(), titoloLista: titoloLista]
     }
 
     def show(WikiBio wikiBioInstance) {

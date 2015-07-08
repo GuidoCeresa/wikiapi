@@ -16,10 +16,17 @@
 			</ul>
 		</div>
 		<div id="list-wikiBio" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
+
+			<g:if test="${titoloLista}">
+				<h1>${titoloLista}</h1>
+			</g:if>
+			<g:else>
+				<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			</g:else>
+
 			<div class="pagination">
 				<g:paginate total="${wikiBioInstanceCount ?: 0}" />
 			</div>

@@ -197,28 +197,6 @@ class ApiService {
     }// end of method
 
     /**
-     * Legge la categoria BioBot
-     */
-    public ArrayList<Integer> creaListaCat() {
-        long inizio = System.currentTimeMillis()
-        ArrayList<Integer> listaTotaleCategoria = LibWiki.creaListaCat(CAT_BIO)
-        int numRec
-
-        if (Pref.getBool(LibWiki.SEND_MAIL_INFO)) {
-            numRec = listaTotaleCategoria.size()
-            if (mailService) {
-                mailService.sendMail {
-                    to 'guidoceresa@me.com'
-                    subject 'Wikiapi - CreaListaCat'
-                    body "Creata la lista della categoria BioBot in " + LibTime.getTimeDiff(inizio) + ". Contiene "
-                }// fine della closure
-            }// fine del blocco if
-        }// fine del blocco if
-
-        return listaTotaleCategoria
-    }// end of method
-
-    /**
      * Controlla il flag USA_LIMITE_DOWNLOAD
      * Usa il numero massimo (MAX_DOWNLOAD) di voci da scaricare ad ogni ciclo (se USA_LIMITE_DOWNLOAD=true)
      */
