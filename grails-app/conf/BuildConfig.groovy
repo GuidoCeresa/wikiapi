@@ -9,17 +9,18 @@ grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 //--eventualmente disabilitare per il funzionamenteo in debug
 grails.project.fork = [
+        test: false,
+        run : false
         // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
-        //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
-
-        // configure settings for the test-app JVM, uses the daemon by default
-        test   : [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon: true],
-        // configure settings for the run-app JVM
-        run    : [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve: false],
-        // configure settings for the run-war JVM
-        war    : [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve: false],
-        // configure settings for the Console UI JVM
-        console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+//        compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon: true],
+//        // configure settings for the test-app JVM, uses the daemon by default
+//        test   : [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon: true],
+//        // configure settings for the run-app JVM
+//        run    : [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve: false],
+//        // configure settings for the run-war JVM
+//        war    : [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve: false],
+//        // configure settings for the Console UI JVM
+//        console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
 
 grails.project.dependency.resolver = "maven"
@@ -53,7 +54,7 @@ grails.project.dependency.resolution = {
         //--test - dependency that is only needed by the tests
         //--provided - dependency that is needed at compile-time but should not be packaged with the app (usually because it is provided by the container). An example is the Servlet API
         runtime 'mysql:mysql-connector-java:5.1.30'
-//        compile "org.springframework:spring-orm:$springVersion"
+        compile "org.springframework:spring-orm:$springVersion"
     }// fine della closure dependencies
 
     plugins {
@@ -66,7 +67,8 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:2.1.5"
 
         //--plugins needed at runtime but not for compilation
-        runtime ":hibernate4:4.3.8.1" // or ":hibernate:3.6.10.18"
+        runtime ":hibernate4:4.3.5.5"
+//        runtime ":hibernate4:4.3.8.1" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
 

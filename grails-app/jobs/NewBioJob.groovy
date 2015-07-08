@@ -20,22 +20,47 @@ public class NewBioJob {
     // il service viene iniettato automaticamente
     def apiService
 
+    // utilizzo di un service con la businessLogic per l'elaborazione dei dati
+    // il service viene iniettato automaticamente
+    def mailService
+
     //--codifica dell'orario di attivazione
     //--MON, TUE, WED, THU, FRI, SAT, SUN
 
-    private static String cronExpressionCiclo = "0 0 * ? * *" //--H24/7 tutte le ore, tutti i giorni
+    private static String cronExpressionCiclo = "0 * * ? * *" //--H24/7 tutte le ore, tutti i giorni
 
     static triggers = {
-        cron name: 'ciclo', cronExpression: cronExpressionCiclo
+        cron name: 'newBio', cronExpression: cronExpressionCiclo
     }// fine del metodo statico
 
 
     def execute() {
+        String oggetto
+        String testo = '\nCiclo newBio'
+        String inizio = new Date().toString()
+        String termine
+        String mailTo = 'guidoceresa@me.com'
+        String time = 'Report iniziato alle ' + inizio
+
         //--flag di attivazione
         if (Pref.getBool(LibWiki.USA_CRONO_BIO)) {
 
             if (apiService) {
                 apiService.newBioCiclo()
+
+                termine = new Date().toString()
+                if (Pref.getBool(LibWiki.SEND_MAIL_INFO)) {
+                    if (mailService) {
+                        testo = time + ' e terminato alle ' + termine + testo
+                        oggetto = 'Wikiapi'
+                        mailService.sendMail {
+                            to mailTo
+                            subject oggetto
+                            body testo
+                        }
+                    }
+                }// fine del blocco if
+
             }// fine del blocco if
 
         }// fine del blocco if

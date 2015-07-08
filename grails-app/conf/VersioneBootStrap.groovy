@@ -78,6 +78,42 @@ public class VersioneBootStrap {
             pref.save(flush: true)
             versioneService.newVersione('Preferenze', 'NUM_RECORDS_INDEX_BIO di default 1000')
         }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(6)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.SEND_MAIL_ERROR
+            pref.descrizione = 'Spedisce una mail in caso di errore, nei punti in cui il codice lo prevede'
+            pref.type = Type.booleano
+            pref.bool = true
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'SEND_MAIL_ERROR di default true')
+        }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(7)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.SEND_MAIL_WARN
+            pref.descrizione = 'Spedisce una mail in caso di malfunzionamento, nei punti in cui il codice lo prevede'
+            pref.type = Type.booleano
+            pref.bool = true
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'SEND_MAIL_WARN di default false')
+        }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(8)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.SEND_MAIL_INFO
+            pref.descrizione = 'Spedisce una mail di informazioni, nei punti in cui il codice lo prevede'
+            pref.type = Type.booleano
+            pref.bool = true
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'SEND_MAIL_INFO di default false')
+        }// fine del blocco if
     }// fine della closure
 
     //--metodo invocato direttamente da Grails

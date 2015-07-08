@@ -13,6 +13,9 @@ public abstract class LibWiki {
     public static final String USA_LIMITE_DOWNLOAD = 'usaLimiteDownload'
     public static final String MAX_DOWNLOAD = 'maxDownload'
     public static final String NUM_RECORDS_INDEX_BIO = 'numRecordsIndexBio'
+    public static final String SEND_MAIL_ERROR = 'sendMailError'
+    public static final String SEND_MAIL_WARN = 'sendMailWarn'
+    public static final String SEND_MAIL_INFO = 'sendMailInfo'
 
     private static String QUERY = 'query'
     private static String PAGEID = 'pageid'
