@@ -11,6 +11,10 @@ class ApiController {
     // il service viene iniettato automaticamente
     def apiService
 
+    // utilizzo di un service con la businessLogic per l'elaborazione dei dati
+    // il service viene iniettato automaticamente
+    def mailService
+
     def index() {
         render 'Not visible'
     }// end of method
@@ -148,7 +152,7 @@ class ApiController {
      */
     def newBioCiclo() {
         if (apiService) {
-            apiService.newBioCiclo()
+            apiService.newBioCiclo(mailService)
         }// fine del blocco if
 
         render 'Eseguito un ciclo di controllo e creazione di nuovi records'

@@ -1,5 +1,7 @@
 package it.algos.wikiapi
 
+import it.algos.algoslib.LibTesto
+import it.algos.algoslib.LibTime
 import it.algos.algospref.Pref
 
 class ApiService {
@@ -7,6 +9,10 @@ class ApiService {
     static boolean transactional = false
     private final static String CAT_BIO = 'BioBot'
     private final static String CAT_DEBUG = 'Calciatori eritrei'
+
+    // utilizzo di un service con la businessLogic per l'elaborazione dei dati
+    // il service viene iniettato automaticamente
+    def mailService
 
     /**
      * Legge dal server wiki
@@ -151,7 +157,12 @@ class ApiService {
      * Trova la differenza
      * Scarica MAX_DOWNLOAD voci dal server e crea MAX_DOWNLOAD nuovi records di WikiBio
      */
-    public void newBioCiclo() {
+    public void newBioCiclo(def mailService) {
+        long inizio = System.currentTimeMillis()
+        long intermedio
+        def numPagine
+        int numRecords = 0
+        String text
         ArrayList<Integer> listaTotaleCategoria
         ArrayList<Integer> listaEsistentiDataBase
         ArrayList<Integer> listaMancanti
@@ -159,14 +170,52 @@ class ApiService {
         listaTotaleCategoria = LibWiki.creaListaCat(CAT_BIO)
         listaEsistentiDataBase = (ArrayList<Integer>) WikiBio.executeQuery("select pageid from WikiBio")
         listaMancanti = listaTotaleCategoria - listaEsistentiDataBase
+        numPagine = listaTotaleCategoria.size()
+        numPagine = LibTesto.formatNum(numPagine)
+        intermedio = System.currentTimeMillis()
 
         listaMancanti = listaParziale(listaMancanti)
         if (listaMancanti) {
             listaMancanti?.each {
                 downloadBio(it)
             } // fine del ciclo each
+            numRecords = listaMancanti.size()
         }// fine del blocco if
 
+        if (Pref.getBool(LibWiki.SEND_MAIL_INFO)) {
+            if (mailService) {
+                text = "Categoria - Creata la lista di ${numPagine} pagine in " + LibTime.getTimeDiff(inizio, intermedio)
+                text += "\nNuovi records - Aggiunti ${numRecords} nuovi records in " + LibTime.getTimeDiff(intermedio)
+                mailService.sendMail {
+                    to 'guidoceresa@me.com'
+                    subject 'Wikiapi - Ciclo newBio'
+                    body text
+                }// fine della closure
+            }// fine del blocco if
+        }// fine del blocco if
+
+    }// end of method
+
+    /**
+     * Legge la categoria BioBot
+     */
+    public ArrayList<Integer> creaListaCat() {
+        long inizio = System.currentTimeMillis()
+        ArrayList<Integer> listaTotaleCategoria = LibWiki.creaListaCat(CAT_BIO)
+        int numRec
+
+        if (Pref.getBool(LibWiki.SEND_MAIL_INFO)) {
+            numRec = listaTotaleCategoria.size()
+            if (mailService) {
+                mailService.sendMail {
+                    to 'guidoceresa@me.com'
+                    subject 'Wikiapi - CreaListaCat'
+                    body "Creata la lista della categoria BioBot in " + LibTime.getTimeDiff(inizio) + ". Contiene "
+                }// fine della closure
+            }// fine del blocco if
+        }// fine del blocco if
+
+        return listaTotaleCategoria
     }// end of method
 
     /**

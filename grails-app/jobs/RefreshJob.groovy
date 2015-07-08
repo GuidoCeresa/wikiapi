@@ -8,7 +8,7 @@ class RefreshJob {
 
     //--delay iniziale
     // execute job 1 minute after start
-    public static int DELAY = 1000 * 60
+    public static int DELAY = 1000 * 20
 
     //--codifica della frequenza
     // execute job once in 30 minutes
@@ -28,6 +28,7 @@ class RefreshJob {
             logs = Logo.getAll()
             if (logs.size() > 0) {
                 //--non fa nulla, ma ha comunque ''risvegliato'' l'applicazione
+                spedisceMail('Applicazione installata e funzionante - Non ci sono logs')
             } else {
                 spedisceMail('Applicazione installata e funzionante - Non ci sono logs')
             }// fine del blocco if-else

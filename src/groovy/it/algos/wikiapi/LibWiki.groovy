@@ -709,4 +709,5 @@ public abstract class LibWiki {
         return GRAFFA_INI + entrata + GRAFFA_END
     }// fine del metodo
 
+
 } // fine della classe astratta
