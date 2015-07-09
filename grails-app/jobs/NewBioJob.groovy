@@ -19,10 +19,8 @@ public class NewBioJob {
     // utilizzo di un service con la businessLogic per l'elaborazione dei dati
     // il service viene iniettato automaticamente
     def apiService
-
-    // utilizzo di un service con la businessLogic per l'elaborazione dei dati
-    // il service viene iniettato automaticamente
     def mailService
+    def logoService
 
     //--codifica dell'orario di attivazione
     //--MON, TUE, WED, THU, FRI, SAT, SUN
@@ -39,7 +37,7 @@ public class NewBioJob {
         if (Pref.getBool(LibWiki.USA_CRONO_BIO)) {
 
             if (apiService) {
-                apiService.newBioCiclo(mailService)
+                apiService.newBioCiclo(mailService, logoService)
             }// fine del blocco if
 
         }// fine del blocco if

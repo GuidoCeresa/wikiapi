@@ -10,10 +10,8 @@ class ApiController {
     // utilizzo di un service con la businessLogic per l'elaborazione dei dati
     // il service viene iniettato automaticamente
     def apiService
-
-    // utilizzo di un service con la businessLogic per l'elaborazione dei dati
-    // il service viene iniettato automaticamente
     def mailService
+    def logoService
 
     def index() {
         render 'Not visible'
@@ -151,8 +149,9 @@ class ApiController {
      * Scarica MAX_DOWNLOAD voci dal server e crea MAX_DOWNLOAD nuovi records di WikiBio
      */
     def newBioCiclo() {
+
         if (apiService) {
-            apiService.newBioCiclo(mailService)
+            apiService.newBioCiclo(mailService, logoService)
         }// fine del blocco if
 
         render 'Eseguito un ciclo di controllo e creazione di nuovi records'

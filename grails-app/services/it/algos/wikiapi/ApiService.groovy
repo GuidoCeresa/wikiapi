@@ -2,6 +2,7 @@ package it.algos.wikiapi
 
 import it.algos.algoslib.LibTesto
 import it.algos.algoslib.LibTime
+import it.algos.algoslogo.Evento
 import it.algos.algospref.Pref
 
 class ApiService {
@@ -143,7 +144,11 @@ class ApiService {
             mappa = pagina.getMappa()
             wiki = (WikiBio) fixMappa(wiki, mappa)
             wiki.tmplBio = tmplBio
-            wiki.save(flush: true)
+            if (Pref.getBool(LibWiki.USA_FLASH_TRUE_DOWNLOAD)) {
+                wiki.save(flush: true)
+            } else {
+                wiki.save(flush: false)
+            }// fine del blocco if-else
         }// fine del blocco if
 
     }// end of method
@@ -157,12 +162,15 @@ class ApiService {
      * Trova la differenza
      * Scarica MAX_DOWNLOAD voci dal server e crea MAX_DOWNLOAD nuovi records di WikiBio
      */
-    public void newBioCiclo(def mailService) {
+    public void newBioCiclo(def mailService, def logoService) {
         long inizio = System.currentTimeMillis()
         long intermedio
         def numPagine
         int numRecords = 0
-        String text
+        String tagCat = 'Categoria - '
+        String tagtNew = '\nNuovi records - '
+        String textCat
+        String textNew
         ArrayList<Integer> listaTotaleCategoria
         ArrayList<Integer> listaEsistentiDataBase
         ArrayList<Integer> listaMancanti
@@ -182,15 +190,20 @@ class ApiService {
             numRecords = listaMancanti.size()
         }// fine del blocco if
 
-        if (Pref.getBool(LibWiki.SEND_MAIL_INFO)) {
-            if (mailService) {
-                text = "Categoria - Creata la lista di ${numPagine} pagine in " + LibTime.getTimeDiff(inizio, intermedio)
-                text += "\nNuovi records - Aggiunti ${numRecords} nuovi records in " + LibTime.getTimeDiff(intermedio)
+        if (Pref.getBool(LibWiki.SEND_MAIL_INFO) || Pref.getBool(LibWiki.LOG_INFO)) {
+            textCat = "Creata la lista di ${numPagine} pagine in " + LibTime.getTimeDiff(inizio, intermedio)
+            textNew = " Aggiunti ${numRecords} nuovi records in " + LibTime.getTimeDiff(intermedio)
+
+            if (Pref.getBool(LibWiki.SEND_MAIL_INFO) && mailService) {
                 mailService.sendMail {
                     to 'guidoceresa@me.com'
                     subject 'Wikiapi - Ciclo newBio'
-                    body text
+                    body tagCat + textCat + tagtNew + textNew
                 }// fine della closure
+            }// fine del blocco if
+
+            if (Pref.getBool(LibWiki.LOG_INFO) && logoService) {
+                logoService.setInfo(null, Evento.findByNome(LibWiki.NEW_BIO), 'gac', '', textCat + textNew)
             }// fine del blocco if
         }// fine del blocco if
 

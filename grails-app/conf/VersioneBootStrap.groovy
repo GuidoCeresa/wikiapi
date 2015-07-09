@@ -98,7 +98,7 @@ public class VersioneBootStrap {
             pref.code = LibWiki.SEND_MAIL_WARN
             pref.descrizione = 'Spedisce una mail in caso di malfunzionamento, nei punti in cui il codice lo prevede'
             pref.type = Type.booleano
-            pref.bool = true
+            pref.bool = false
             pref.save(flush: true)
             versioneService.newVersione('Preferenze', 'SEND_MAIL_WARN di default false')
         }// fine del blocco if
@@ -110,9 +110,57 @@ public class VersioneBootStrap {
             pref.code = LibWiki.SEND_MAIL_INFO
             pref.descrizione = 'Spedisce una mail di informazioni, nei punti in cui il codice lo prevede'
             pref.type = Type.booleano
-            pref.bool = true
+            pref.bool = false
             pref.save(flush: true)
             versioneService.newVersione('Preferenze', 'SEND_MAIL_INFO di default false')
+        }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(9)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.LOG_ERROR
+            pref.descrizione = 'Registra un log in caso di errore, nei punti in cui il codice lo prevede'
+            pref.type = Type.booleano
+            pref.bool = true
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'LOG_ERROR di default true')
+        }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(10)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.LOG_WARN
+            pref.descrizione = 'Registra un log in caso di malfunzionamento, nei punti in cui il codice lo prevede'
+            pref.type = Type.booleano
+            pref.bool = false
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'LOG_WARN di default false')
+        }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(11)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.LOG_INFO
+            pref.descrizione = 'Registra un log di informazioni, nei punti in cui il codice lo prevede'
+            pref.type = Type.booleano
+            pref.bool = false
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'LOG_INFO di default false')
+        }// fine del blocco if
+
+        //--creata una nuova preferenza
+        if (versioneService && versioneService.installaVersione(12)) {
+            Pref pref = new Pref()
+            pref.ordine = Pref.list().size() + 1
+            pref.code = LibWiki.USA_FLASH_TRUE_DOWNLOAD
+            pref.descrizione = 'Usa la registrazione immediata nel ciclo NewBioDownload'
+            pref.type = Type.booleano
+            pref.bool = true
+            pref.save(flush: true)
+            versioneService.newVersione('Preferenze', 'USA_FLASH_TRUE_DOWNLOAD di default true')
         }// fine del blocco if
     }// fine della closure
 

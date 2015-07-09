@@ -28,7 +28,6 @@ class RefreshJob {
             logs = Logo.getAll()
             if (logs.size() > 0) {
                 //--non fa nulla, ma ha comunque ''risvegliato'' l'applicazione
-                spedisceMail('Applicazione installata e funzionante - Non ci sono logs')
             } else {
                 spedisceMail('Applicazione installata e funzionante - Non ci sono logs')
             }// fine del blocco if-else
