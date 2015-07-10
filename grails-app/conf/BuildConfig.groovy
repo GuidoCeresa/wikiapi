@@ -9,6 +9,7 @@ grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 //--eventualmente disabilitare per il funzionamenteo in debug
 grails.project.fork = [
+
 //        test: false,
 //        run : false,
         // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
