@@ -10,7 +10,7 @@ grails.project.war.file = "target/${appName}-${appVersion}.war"
 //--eventualmente disabilitare per il funzionamenteo in debug
 grails.project.fork = [
 //        test: false,
-//        run : false
+//        run : false,
         // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
         compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon: true],
         // configure settings for the test-app JVM, uses the daemon by default
@@ -79,7 +79,7 @@ grails.project.dependency.resolution = {
         //    runtime ":filterpane:2.4.2" //--non funziona con Grails 2.4.1
 
         //--plugin della algos
-        compile ":algos:1.47"
+        compile ":algos:1.48"
 
     }// fine della closure plugins
 }// fine di grails.project.dependency.resolution
