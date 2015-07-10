@@ -167,6 +167,7 @@ class ApiService {
         long intermedio
         def numPagine
         int numRecords = 0
+        def totRecords = 0
         String tagCat = 'Categoria - '
         String tagtNew = '\nNuovi records - '
         String textCat
@@ -176,12 +177,13 @@ class ApiService {
         ArrayList<Integer> listaMancanti
 
         listaTotaleCategoria = LibWiki.creaListaCat(CAT_BIO)
+        intermedio = System.currentTimeMillis()
         listaEsistentiDataBase = (ArrayList<Integer>) WikiBio.executeQuery("select pageid from WikiBio")
         listaMancanti = listaTotaleCategoria - listaEsistentiDataBase
         numPagine = listaTotaleCategoria.size()
         numPagine = LibTesto.formatNum(numPagine)
-        intermedio = System.currentTimeMillis()
-
+        totRecords = WikiBio.count
+        totRecords = LibTesto.formatNum(totRecords)
         listaMancanti = listaParziale(listaMancanti)
         if (listaMancanti) {
             listaMancanti?.each {
@@ -191,8 +193,8 @@ class ApiService {
         }// fine del blocco if
 
         if (Pref.getBool(LibWiki.SEND_MAIL_INFO) || Pref.getBool(LibWiki.LOG_INFO)) {
-            textCat = "Creata la lista di ${numPagine} pagine in " + LibTime.getTimeDiff(inizio, intermedio)
-            textNew = " Aggiunti ${numRecords} nuovi records in " + LibTime.getTimeDiff(intermedio)
+            textCat = "Lette le ${numPagine} pagine della categoria in " + LibTime.getTimeDiff(inizio, intermedio)
+            textNew = " Aggiunti ${numRecords} records per un totale di ${totRecords} in " + LibTime.getTimeDiff(intermedio)
 
             if (Pref.getBool(LibWiki.SEND_MAIL_INFO) && mailService) {
                 mailService.sendMail {

@@ -25,7 +25,7 @@ public class NewBioJob {
     //--codifica dell'orario di attivazione
     //--MON, TUE, WED, THU, FRI, SAT, SUN
 
-    private static String cronExpressionCiclo = "0 0 * ? * *" //--H24/7 tutte le ore, tutti i giorni
+    private static String cronExpressionCiclo = "0 0 1/2 ? * *" //--H24/7 tutte le ore, tutti i giorni
 
     static triggers = {
         cron name: 'newBio', cronExpression: cronExpressionCiclo
