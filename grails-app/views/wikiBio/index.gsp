@@ -30,7 +30,8 @@
 			<div class="pagination">
 				<g:paginate total="${wikiBioInstanceCount ?: 0}" />
 			</div>
-			<table>
+
+				<table>
 			<thead>
 					<tr>
 					
