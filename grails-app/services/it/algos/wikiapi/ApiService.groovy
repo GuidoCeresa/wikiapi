@@ -180,11 +180,7 @@ class ApiService {
         intermedio = System.currentTimeMillis()
         listaEsistentiDataBase = (ArrayList<Integer>) WikiBio.executeQuery("select pageid from WikiBio")
         listaMancanti = listaTotaleCategoria - listaEsistentiDataBase
-        numPagine = listaTotaleCategoria.size()
-        numPagine = LibTesto.formatNum(numPagine)
-        totRecords = WikiBio.count
-        totRecords = LibTesto.formatNum(totRecords)
-        listaMancanti = listaParziale(listaMancanti)
+
         if (listaMancanti) {
             listaMancanti?.each {
                 downloadBio(it)
@@ -192,8 +188,14 @@ class ApiService {
             numRecords = listaMancanti.size()
         }// fine del blocco if
 
+        numPagine = listaTotaleCategoria.size()
+        numPagine = LibTesto.formatNum(numPagine)
+        totRecords = WikiBio.count
+        totRecords = LibTesto.formatNum(totRecords)
+        listaMancanti = listaParziale(listaMancanti)
+
         if (Pref.getBool(LibWiki.SEND_MAIL_INFO) || Pref.getBool(LibWiki.LOG_INFO)) {
-            textCat = "Lette le ${numPagine} pagine della categoria in " + LibTime.getTimeDiff(inizio, intermedio)
+            textCat = "Lette le ${numPagine} pagine della categoria in " + LibTime.getTimeDiffMin(inizio, intermedio)
             textNew = " Aggiunti ${numRecords} records per un totale di ${totRecords} in " + LibTime.getTimeDiff(intermedio)
 
             if (Pref.getBool(LibWiki.SEND_MAIL_INFO) && mailService) {

@@ -80,7 +80,7 @@ grails.project.dependency.resolution = {
         //    runtime ":filterpane:2.4.2" //--non funziona con Grails 2.4.1
 
         //--plugin della algos
-        compile ":algos:1.48"
+        compile ":algos:1.49"
 
     }// fine della closure plugins
 }// fine di grails.project.dependency.resolution
