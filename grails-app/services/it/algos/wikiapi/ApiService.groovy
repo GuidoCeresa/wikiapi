@@ -166,7 +166,7 @@ class ApiService {
         long inizio = System.currentTimeMillis()
         long intermedio
         def numPagine
-        int numRecords = 0
+        def numRecords = 0
         def totRecords = 0
         String tagCat = 'Categoria - '
         String tagtNew = '\nNuovi records - '
@@ -188,6 +188,7 @@ class ApiService {
             numRecords = listaMancanti.size()
         }// fine del blocco if
 
+        numRecords = LibTesto.formatNum(numRecords)
         numPagine = listaTotaleCategoria.size()
         numPagine = LibTesto.formatNum(numPagine)
         totRecords = WikiBio.count
